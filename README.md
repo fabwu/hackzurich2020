@@ -16,3 +16,9 @@ export FLASK_APP=src/backend/application.py
 export FLASK_ENV=development
 python -m flask run
 ```
+
+## Deployment
+
+```
+az webapp up
+```
