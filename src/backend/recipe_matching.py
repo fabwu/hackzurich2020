@@ -20,11 +20,12 @@ def find_matching_recipe(textinput, lang=None):
     '''
 
     textinput_words = [w for w in word_tokenize(textinput) if len(w) > 1]
+
     if len(textinput_words) == 0:
         raise ValueError("please input words with more than one letter") ## return error code instead?
 
-    # detect if language is English (remove if takes long)
-    if lang is None:  # detect if english
+    # detect if language is English
+    if lang is None:
         english_vocab = set(w.lower() for w in nltk.corpus.words.words())
         text_vocab = set(w.lower() for w in textinput_words if w.lower().isalpha())
         unusual = text_vocab.difference(english_vocab)
@@ -44,17 +45,22 @@ def find_matching_recipe(textinput, lang=None):
     # recipe search
 
 
-    '''POST "hack/recipe/recipes_de/_search"  \
-           -H "Content-Type: application/json"  \
-           -d '{"query": {"match": {"title":{"query":"Spanferkel"}}}}'
-    '''
+    # '''POST "hack/recipe/recipes_de/_search"  \
+    #        -H "Content-Type: application/json"  \
+    #        -d '{"query": {"match": {"title":{"query":"Spanferkel"}}}}'
+    # '''
+    #
+    # json_query = '{"query": {"match": {"title":{"query":"'+urllib.parse.quote(textinput)+'"}}}}' #
+    # headers = {'Content-Type': 'application/json'}
+    # req = requests.post(BASE_URL + f"hack/recipe/recipes_{lang}/_search", data=json_query, auth=AUTH, headers=headers)
+    # assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
 
-    json_query = '{"query": {"match": {"title":{"query":"'+urllib.parse.quote(textinput)+'"}}}}' #
-    '{"query": {"match": {"title":{"query":"Spanferkel"}}}}'
+
+    params = {"q": urllib.parse.quote(textinput)}
     headers = {'Content-Type': 'application/json'}
-    req = requests.post(BASE_URL + f"hack/recipe/recipes_{lang}/_search", data=json_query, auth=AUTH, headers=headers)
-    assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
 
+    req = requests.get(BASE_URL + f"hack/recipe/recipes_{lang}/_search", params=params, auth=AUTH, headers=headers)
+    assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
 
 
 def testme():
