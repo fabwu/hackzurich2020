@@ -14,13 +14,13 @@ def get_score():
         if not success:
             return 404
 
-
-
         indicators = eaternity.get_indicators(ingredients)
 
         queries.append({
             'query': dish,
-            'indicators': indicators
+            'matched-recipe': recipe['title'],
+            'matched-ingredients': ingredients,
+            'indicators': indicators,
         })
 
 
