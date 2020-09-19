@@ -136,7 +136,6 @@ def find_matching_recipe(textinput, lang=None):
         lang = "de"
 
     # recipe search
-
     data  = {
         "query": {
             "simple_query_string": {
@@ -150,6 +149,9 @@ def find_matching_recipe(textinput, lang=None):
     assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
 
     recipes = req.json()['hits']['hits']
+    with open("myfile.txt", "w") as file1: 
+    # Writing data to a file 
+        file1.write(json.dumps(req.json(), indent=4, sort_keys=True)) 
     if len(recipes) == 0:
         return [], 404
     # # ... Todo
@@ -160,6 +162,7 @@ def find_matching_recipe(textinput, lang=None):
     # # ... Todo
 
     best_match = recipes[0]["_source"] # preliminary
+
 
     # Get ingredients with quantities
     num_portions =  best_match["sizes"][0]["quantity"]
