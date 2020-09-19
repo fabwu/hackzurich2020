@@ -29,11 +29,9 @@ def migusto_to_eaternity_unit(unit_name, amount, ingredient_id=None):
         if ingredient_id is not None:
             # Todo: Can use the ingredients API and find out the type? -> lower weight for spices
             raise NotImplementedError
-        if amount > 0:
-            unit_name = None # unit is _not_ required, according to the docs
-        else:
-            unit_name = "gram"
-            amount = 250
+        # unit is _not_ required, according to the docs -- edit: but then it defaults to gram. Not useful.
+        unit_name = "gram"
+        amount = 250
     else:
         if unit_name in ["g", "l"]:
             unit_name = "gram" if unit_name == "g" else "liter"
@@ -175,7 +173,8 @@ def find_matching_recipe(textinput, lang=None):
             name = ing['text']
             if len(name.split(" ")) > 1:
                 # skip ingredients with more than one word to minimize things eaternity does not recognize
-                continue
+                # continue
+                pass
             ingred =  { #'id': ing['id'],
                     'name': name,
                     'lang': lang

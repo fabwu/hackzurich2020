@@ -2,7 +2,7 @@ import requests
 import time
 import os
 
-# from text_matching import find_best_match
+from text_matching import find_best_match
 
 from requests.auth import HTTPBasicAuth
 
@@ -104,9 +104,13 @@ def get_indicators(ingredients):
 
     for idx, ing in enumerate(ingredients):
         if ing['name'] not in product_whitelist_de:
-            # match, close_enough = find_best_match(ing['name'], product_whitelist_de)
-            # print(f"Skipping {ing['name']}")
-            continue
+            # continue  ## Uncomment to remove any Migros-to-Eaternity-ingredients-matching
+            match, close_enough = find_best_match(ing['name'], product_whitelist_de)
+            if not close_enough:
+                print(f"Skipping {ing['name']}")
+                continue
+            else:
+                ing["name"] = match
 
         req_ingredient = {
             # Use new id for each request!!!
@@ -156,47 +160,65 @@ if __name__ == '__main__':
     # TODO Error handling (what happens if ingredient is not found)
     ingredients = [
         {
-            "name": "Chilli",
+            "name": "Kalbsschnitzel à ca. 150 g, vom Eck- oder Huftstück",
+            "lang": "de",
+            "amount": 250,
+            "unit": "gram"
+        },
+        {
+            "name": "Cherrytomate",
             "lang": "de",
             "amount": 100,
             "unit": "gram"
         },
         {
-            "name": "Poulet",
+            "name": "Cicorino rosso",
             "lang": "de",
-            "amount": 200,
+            "amount": 100,
             "unit": "gram"
         },
         {
-            "name": "Sardellenfilet in Öl",
+            "name": "rohe Randen",
             "lang": "de",
-            "amount": 200,
+            "amount": 100,
             "unit": "gram"
         },
-        {
-            "name": "Weissweinessig",
-            "lang": "de",
-            "amount": 200,
-            "unit": "gram"
-        },
-        {
-            "name": "Ei",
-            "lang": "de",
-            "amount": 200,
-            "unit": "gram"
-        },
-        {
-            "name": "Toastbrot",
-            "lang": "de",
-            "amount": 200,
-            "unit": "gram"
-        },
-        {
-            "name": "Lattich",
-            "lang": "de",
-            "amount": 200,
-            "unit": "gram"
-        },
+        # {
+        #     "name": "Buchweizen",
+        #     "lang": "de",
+        #     "amount": 200,
+        #     "unit": "gram"
+        # },
+        # {
+        #     "name": "Sardellenfilet in Öl",
+        #     "lang": "de",
+        #     "amount": 200,
+        #     "unit": "gram"
+        # },
+        # {
+        #     "name": "Weissweinessig",
+        #     "lang": "de",
+        #     "amount": 200,
+        #     "unit": "gram"
+        # },
+        # {
+        #     "name": "Ei",
+        #     "lang": "de",
+        #     "amount": 200,
+        #     "unit": "gram"
+        # },
+        # {
+        #     "name": "Toastbrot",
+        #     "lang": "de",
+        #     "amount": 200,
+        #     "unit": "gram"
+        # },
+        # {
+        #     "name": "Lattich",
+        #     "lang": "de",
+        #     "amount": 200,
+        #     "unit": "gram"
+        # },
     ]
 
     scores = get_indicators(ingredients)
