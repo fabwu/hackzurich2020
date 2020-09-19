@@ -33,6 +33,22 @@ def find_matching_recipe(textinput, lang=None):
 
     '''
 
+    #TODO return such a dict
+    return [
+        {
+            "name": "Chilli",
+            "lang": "de",
+            "amount": 100,
+            "unit": "gram"
+        },
+        {
+            "name": "Poulet",
+            "lang": "de",
+            "amount": 200,
+            "unit": "gram"
+        },
+    ]
+
     textinput_words = [w for w in word_tokenize(textinput) if len(w) > 1]
 
     if len(textinput_words) == 0:
