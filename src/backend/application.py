@@ -10,36 +10,26 @@ def get_score():
 
     for dish in dishes:
         recipe, success = recipe_matching.find_matching_recipe(dish, 'de')
-        ingredients = recipe['ingredients']
         if not success:
-            return 404
+            return {}, 500
 
-        indicators = eaternity.get_indicators(ingredients)
-
-        queries.append({
-            'query': dish,
-            'matched-recipe': recipe['title'],
-            'matched-ingredients': ingredients,
-            'indicators': indicators,
-        })
-
+        if not recipe:
+            queries.append({
+                'query': dish,
+                'matched-recipe': 'Not Found',
+                'matched-ingredients': [],
+                'indicators': [],
+            })
+        else:
+            ingredients = recipe['ingredients']
+            indicators = eaternity.get_indicators(ingredients)
+            queries.append({
+                'query': dish,
+                'matched-recipe': recipe['title'],
+                'matched-ingredients': ingredients,
+                'indicators': indicators,
+            })
 
     return {
         'queries': queries
-    }
-
-@app.route('/recipe/<query>')
-def get_score_for_recipe(query):
-    print(f"Request for recipe {query}")
-
-    recipe, success = recipe_matching.find_matching_recipe(query, 'de')
-    ingredients = recipe['ingredients']
-    if not success:
-        return 404
-
-    scores = eaternity.get_score(ingredients)
-
-    return {
-        'query': query,
-        'scores': 113
     }

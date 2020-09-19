@@ -1,0 +1,517 @@
+Aal
+Ackerbohnen
+Ahornsirup
+Algen
+Amarant
+Ananas
+Ananassaft
+Anis
+Apfel
+Apfelessig
+Apfelpektin
+Apfelsaft
+Aprikosen
+Artischocken
+Artischockenherzen
+Aubergine
+Austern
+Austernpilz
+Avocado
+Backpulver
+Balsamico Essig
+Bananen
+Bärlauch
+Basilikum
+Basmatireis
+Batavia
+Walnüsse
+Walnüssöl
+Bier
+Birnen
+Birnensaft
+Blätterteig (pflanzliche Fette)
+Blätterteig
+Blaubeeren
+Weißer Spargel
+Blumenkohl
+Bohnenkraut
+Branntweinessig
+Brechbohnen
+Brennnesseln
+Broccoli
+Brombeeren
+Brot
+Brötchen
+Brunnenkresse
+Buchweizen,
+Buchweizenmehl
+Bulghur
+Bündnerfleisch
+Buschbohnen
+Butter
+Buttermilch
+Butternut
+Cashewnüsse
+Champagner
+Champignons
+Cheddar
+Cherrytomaten
+Chia
+Chicorée
+Chili
+Chinakohl
+Cicorino
+Claressefilet
+Cognac
+Couscous
+Crème fraiche
+Garnelen
+Curry
+Currypaste
+Datteln
+Dextrose
+Dillkraut
+Dinkelmehl
+Dinkelvollkornschrot
+Distelöl
+Dorsch
+Ebly
+Edamame
+Eglifilet
+Eier
+Eier (Bodenhaltung)
+Eier (Freilandhaltung)
+Eichblattsalat
+Eigelb
+Eisbergsalat
+Eiweiss
+Endivie
+Ente
+Erbsen
+Erdbeeren
+Erdnüsse
+Erdnussöl
+Essig
+Essiggurken
+Feigen
+Felchen
+Fenchel
+Fenchelsamen
+Tierfett
+Fisch
+Fleisch
+Flunder
+Fohlen
+Frucht
+Fruchtsaft
+Frühkartoffeln
+Frühlingszwiebeln
+Galgant
+Garnelenpaste
+Gelatine
+Gelbe Linsen
+Gemüse
+Gemüsebouillon
+Gemüsebrühe
+Gerste
+Gerstenmalzextrakt
+Gewürze
+Glasnudeln
+Gluten
+Gnocchi
+Goldbrasse
+Goldhirse
+Goldmakrele
+Grapefruit
+Grapefruitsaft
+Grüne Bohnen
+Grünkern
+Grünkernschrot
+Grünkohl
+Grüner Spargel
+Grüntee
+Gruyere
+Gurke
+Hafer
+Haferdrink
+Haferflocken
+Hafersahne
+Hartweizengrieß
+Haselnüsse
+Haselnussöl
+Hefe (frisch)
+Hefe
+Heilbutt
+Hering
+Himbeeren
+Himbeeressig
+Hirschfleisch
+Hirse
+Hokkaido
+Honig
+Hühnerbrühe
+Hummer
+Ingwer
+Jalapeno
+Joghurt (natur)
+Joghurt
+Kabeljau
+Kaffeebohnen
+Kaffeesahne
+Kakaopulver
+Kakaobutter
+Kakaomasse
+Kalb
+Kalbsbratwurst
+Kängurufleisch
+Kaninchenfleisch
+Kapern
+Kardamom
+Karotten
+Kartoffeln
+Kefen
+Kerbel
+Ketchup
+Kichererbsen
+Kichererbsenmehl
+Kidneybohnen
+Kirsche
+Kiwi
+Knoblauch
+Knollensellerie
+Kohlrabi
+Kokos
+Kokosnussmilch
+Kokosnussöl
+Kokosraspel
+Kopfsalat
+Koriander
+Kräuter
+Kräutertee
+Kreuzkümmel
+Kümmel
+Kürbis
+Kürbiskerne
+Kurkuma
+Lachs
+Lachsforelle
+Lamm
+Languste
+Lattich
+Lauch
+Laugenbretzel
+Leinsamen
+Liebstöckel
+Limette
+Limettensaft
+Linsen
+Linsenmehl
+Lollo
+Lorbeer
+Mais
+Maisgrieß
+Maisgriess
+Maismehl
+Majoran
+Makrele
+Mandarinen
+Mandarinensaft
+Mandeln
+Mango
+Mangold
+Mangomark
+Maniok
+Maracuja
+Margarine
+Marmelade
+Maronen
+Mascarpone
+Mayonnaise
+Meerrettich
+Melasse
+Melone
+Milchpulver
+Mineralwasser
+Mineralwasser (mit Kohlensäure)
+Mineralwasser (ohne Kohlensäure)
+Minze
+Molke
+Molkepulver
+Mu-Err-Pilze
+Mehrkornmehl
+Mungobohne
+Muscheln
+Muskat
+Nektarine
+Nelken
+Nudeln
+Nudeln (mit Ei)
+Nüsse
+Feldsalat
+Oliven
+Olivenöl
+Orangen
+Orangensaft
+Oregano
+Pak choi
+Palmöl
+Paneer
+Pangasius
+Paniermehl
+Paprika
+Pariser Karotten
+Pastinaken
+Peperoncini
+Peperoni
+Petersilie
+Petersilienwurzel
+Pfeffer
+Pferd
+Pfifferlinge
+Pfirsich
+Pfirsichsaft
+Pflanzenfett
+pflanzliches Öl
+Pflaumen
+Pinienkerne
+Pistazien
+Pommes
+Portulak
+Portwein
+Hähnchen
+Prinzessbohnen
+Quark
+Quinoa
+Quitte
+Quorn
+Raclette
+Radieschen
+Sahnepulver
+Rote Beete
+Rote Beete Saft
+Rapsöl
+Räucherschinken
+Reis
+Reisdrink
+Reisessig
+Reismehl
+Rettich
+Rhabarber
+Ricotta
+Rind
+Rinderbrühe
+Risottoreis
+Rispentomaten
+Roggenmehl
+Roggenschrot
+Rohschinken
+Rollgerste
+Romanesco
+Rosenkohl
+Rosinen
+Rosmarin
+Rote Linsen
+Rotkohl
+Ruchbrot
+Ruchmehl
+Rucola
+Safran
+Sahne
+Sahne (Doppelrahmstufe, 45% Fett)
+Sahne (Vollfettstufe, 35% Fett)
+Sahne (Halbfettstufe, 25% Fett)
+Saibling
+Salami
+Salbei
+Salz
+Sambal Oelek
+Sardellen
+Sauerkraut
+Sauermilch
+Schmand
+Schalotte
+Schinken
+Speck
+Sonnenweizen
+Schnapper
+Schnittlauch
+Schokolade
+Schokolade (dunkel)
+Schokolade (Milch)
+Schokolade (weiß)
+Scholle
+Schwarze Bohnen
+Schwarzkümmel
+Schwarztee
+Schwarzwurzel
+Schwein
+Schweineschmalz
+Seehecht
+Seelachs
+Seidentofu
+Seitan
+Senf
+Senfkörner
+Sesam
+Sesamöl
+Sherryessig
+Laugengebäck
+Silserbrot
+Soisson Bohnen
+Soja
+Sojamehl
+Sojamilch
+Sojaöl
+Sojasauce
+Sonnenblumenkerne
+Sonnenblumenöl
+Spaghetti
+Speck
+Spinat
+Spirituosen
+Spitzkohl
+Sprossen
+Stangensellerie
+Stärke (Mais)
+Stärke (Weizen)
+Stärke (Kartoffel)
+Steckrüben
+Steinpilze
+Sternanis
+Sternfrucht
+Strauss
+Sultaninen
+Süßholz
+Süßkartoffel
+Tabasco
+Tamarinde
+Tempeh
+Thunfisch
+Thymian
+Tilapia
+Tilsiter
+Tofu
+Tomaten
+Tomatenkonzentrat
+Tomatensaft
+Tomatensugo
+Topinambur
+Trauben
+Traubenkernöl
+Traubensaft
+Radicchio
+Trüffel
+Truthuhn
+Vanilleschoten
+Vermouth
+Wermut
+Vollei
+Vollkorngrieß
+Vollkorngriess
+Vollkornmehl
+Vollkornschrot
+Wacholderbeeren
+Wachsbohnen
+Waldpilze
+Wasser
+Wassermelone
+Wein
+Weiße Bohnen
+Weißer Tee
+Weißkohl
+Weißmehl
+Weißweinessig
+Weizen
+Weizenmehl
+Wildschwein
+Wirsing
+Wolfsbarsch
+Zanderfilet
+Ziegenfleisch
+Ziegenkäse
+Ziegenmilch
+Zimt
+Zitronen
+Zitronengras
+Zitronenmelisse
+Zitronensaft
+Zucchini
+Zucker
+Zucker (Zuckerrohr)
+Zucker (Zuckerrüben)
+Zuckerhut
+Zwetschgen
+Zwiebeln
+Käse
+Käse (weich, 20 -25%)
+Käse (halbhart, 25 - 30%)
+Käse (hart, mehr als 30% )
+Käse (frisch, 0 - 15%)
+Emmentaler
+Gruyer
+Grana Padano
+Parmesan
+Mozzarella
+Feta
+Ricotta
+Mascarpone
+Milch
+Milch (mager, bis 0.5%)
+Milch (UHT, teilentrahmt, bis 2.5%)
+Milch (UHT, Vollrahm, 3.5%)
+Kalb
+Kalb (Hackfleisch)
+Kalb (Leber)
+Kalb (Wurstfleisch)
+Kalb (Steaks)
+Kalb (Schulterbraten)
+Kalb (Ragout)
+Kalb (Schnitzel)
+Kalb (Kotelett)
+Kalb (Haxen)
+Kalb (Halsbraten)
+Kalb (Geschnetzeltes)
+Kalb (Filet)
+Kalb (Brust)
+Rind
+Rind (Geschnetzeltes)
+Rind (Hackfleisch)
+Rind (Hohrücken)
+Rind (Filet)
+Rind (Hüfte)
+Rind (Schnitzel)
+Rind (Ragout)
+Rind (Roastbeef)
+Rind (Schulterbraten)
+Rind (Siedfleisch durchzogen)
+Rind (Keule)
+Rind (Wurstfleisch)
+Rind (Kopf, Füsse)
+Rind (Innereien)
+Schwein
+Schwein (Hackfleisch)
+Schwein (Wurstfleisch)
+Schwein (Schwarte)
+Schwein (Lendenkotelett)
+Schwein (Schnürrli)
+Schwein (Geschnetzeltes)
+Schwein (Brust)
+Schwein (Ragout, Haxen)
+Schwein (Schulterbraten)
+Schwein (Schnitzel)
+Schwein (Halsbraten)
+Schwein (Kotelett)
+Schwein (Filet)
+Lamm
+Lamm (Fleisch ohne Knochen)
+Lamm (Keule ohne Schlossbein)
+Lamm (Kotelett, geschnitten)
+Lamm (Hals und Brust mit Bein)
+Lamm (Schulter ohne Bein)
+Lamm (Rücken ohne Filet)
+Hähnchen
+Hähnchen (ganzes Hähnchen)
+Hähnchen (Schenkel)
+Hähnchen (Brust und Innenfilet)
+Hähnchen (Flügel)
+Poulet

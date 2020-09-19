@@ -1,5 +1,6 @@
 import requests
 import time
+import os
 
 from requests.auth import HTTPBasicAuth
 
@@ -11,6 +12,8 @@ DUMMY_KITCHEN_NAME = 'my_first_kitchen'
 if YOUR_KEY == "CHANGEME":
     raise RuntimeError("Please change your api key!!")
 
+PRODUCT_WHITELIST_FILE = 'eaternity_product_list_de.txt'
+product_whitelist_de = []
 
 def get_kitchens():
     url = f"{BASE_URL}/api/kitchens/"
@@ -84,11 +87,23 @@ def get_indicators(ingredients):
     },
     ]
     """
+    global product_whitelist_de
+
+    if not product_whitelist_de:
+        dirname = os.path.dirname(os.path.realpath(__file__))
+        with open(f"{dirname}/{PRODUCT_WHITELIST_FILE}") as file:
+            product_whitelist_de = [line.strip() for line in file]
+            if not product_whitelist_de:
+                raise Exception('Whitelist is empty')
+
     url = f"{BASE_URL}/api/kitchens/{DUMMY_KITCHEN_NAME}/recipes?indicators=true&transient=true"
 
     req_ingredients = []
 
     for idx, ing in enumerate(ingredients):
+        if ing['name'] not in product_whitelist_de:
+            continue
+
         req_ingredient = {
             # Use new id for each request!!!
             "id": int(time.time()) + idx,
@@ -106,6 +121,9 @@ def get_indicators(ingredients):
             req_ingredient['unit'] = ing['unit']
 
         req_ingredients.append(req_ingredient)
+
+    if not req_ingredients:
+        raise Exception('No ingredients found for Eaternity') 
 
     body = {
         "recipe": {
