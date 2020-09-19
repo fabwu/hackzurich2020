@@ -8,7 +8,8 @@ app = Flask(__name__)
 def get_score_for_recipe(query):
     print(f"Request for recipe {query}")
 
-    ingredients = recipe_matching.find_matching_recipe(query, 'de')
+    recipe = recipe_matching.find_matching_recipe(query, 'de')
+    ingredients = recipe['ingredients']
 
     scores = eaternity.get_score(ingredients)
 
