@@ -183,7 +183,7 @@ def find_matching_recipe(textinput, lang=None):
 
         ingredients.append(ingred)
 
-    result_dict = {"title": best_match["title"],
+    result_dict = { "title": best_match["title"],
                     "nutrients": best_match["nutrients"],
                     "ingredients": ingredients
                     }
@@ -192,8 +192,8 @@ def find_matching_recipe(textinput, lang=None):
 
 
 def testme():
-    textinputs = ["Carbonara Spaghetti", "A worse. Apple-Cake#"]
-    find_matching_recipe(textinputs, lang="de")
+    textinputs = ["Carbonara Spaghetti", "A worse. Apple-Cake#", "Red Thai Curry"]
+    find_matching_recipe(textinputs, lang="en")
 
 if __name__ == '__main__':
     testme()
