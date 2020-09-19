@@ -131,7 +131,8 @@ def find_matching_recipe(textinput, lang=None):
         import goslate
         gs = goslate.Goslate()
         textinput_en = textinput
-        textinput = gs.translate(textinput, 'de', 'en')
+        # This works, BUT this calls an API with a rate limit. I think it's one request per 3 seconds... not good.
+        textinput = " ".join(list(gs.translate(textinput_word, 'de')))
         lang = "de"
 
     # recipe search
@@ -193,7 +194,8 @@ def find_matching_recipe(textinput, lang=None):
 
 def testme():
     textinputs = ["Carbonara Spaghetti", "A worse. Apple-Cake#", "Red Thai Curry"]
-    find_matching_recipe(textinputs, lang="en")
+    textinput = textinputs[2]
+    find_matching_recipe(textinput, lang="de") # "en")
 
 if __name__ == '__main__':
     testme()
