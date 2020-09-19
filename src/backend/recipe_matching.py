@@ -32,10 +32,10 @@ def migusto_to_eaternity_unit(unit_name, amount, ingredient_id=None):
         if unit_name in ["g", "l"]:
             unit_name = "gram" if unit_name == "g" else "liter"
         elif unit_name == "dl":
-            unit_name = "l"
+            unit_name = "liter"
             amount *= 0.1
         elif unit_name == "kg":
-            unit_name = "g"
+            unit_name = "gram"
             amount *= 1000
         else:
             raise NotImplementedError("Todo, unit: "+unit_name)
@@ -60,6 +60,7 @@ def find_matching_recipe(textinput, lang=None):
              # ** Note: quantity can be 0 (e.g for "salt" where it's not specified)
            }
          }
+         Plus a success boolean, true if a recipe was found
 
     '''
 
@@ -112,6 +113,8 @@ def find_matching_recipe(textinput, lang=None):
     assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
 
     recipes = req.json()['hits']['hits']
+    if len(recipes) == 0:
+        return {}, False
     # ... Todo
 
     # all returned recipe names - it only returns 10
@@ -145,7 +148,7 @@ def find_matching_recipe(textinput, lang=None):
                    "nutrients": best_match["nutrients"],
                    "ingredients": ingredients
                    }
-    return result_dict
+    return result_dict, True
 
 
 def testme():
