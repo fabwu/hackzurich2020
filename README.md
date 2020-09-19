@@ -11,7 +11,8 @@
 # Switch to venv
 pip install requests flask goslate
 
-export FLASK_APP=src/backend/app.py
+
+export FLASK_APP=src/backend/application.py
 export FLASK_ENV=development
 python -m flask run
 ```

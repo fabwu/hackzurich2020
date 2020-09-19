@@ -65,7 +65,7 @@ def delete_all_recipes():
             delete_recipe(recipe_id)
 
 
-def get_score(ingredients):
+def get_indicators(ingredients):
     """
     Takes a dict with ingredients and returns environment scores
 
@@ -89,7 +89,7 @@ def get_score(ingredients):
     req_ingredients = []
 
     for idx, ing in enumerate(ingredients):
-        req_ingredients.append({
+        req_ingredient = {
             # Use new id for each request!!!
             "id": int(time.time()) + idx,
             "type": "conceptual-ingredients",
@@ -100,8 +100,12 @@ def get_score(ingredients):
                 }
             ],
             "amount": ing['amount'],
-            "unit": ing['unit'],
-        })
+        }
+
+        if 'unit' in ing:
+            req_ingredient['unit'] = ing['unit']
+
+        req_ingredients.append(req_ingredient)
 
     body = {
         "recipe": {
@@ -121,7 +125,8 @@ def get_score(ingredients):
         delete_recipe(recipe['recipe-id'])
 
         return {
-            'co2-eq-in-g': recipe['recipe']['co2-value']
+            'co2-eq-in-g': recipe['recipe']['co2-value'],
+            'rating': recipe['recipe']['rating']
         }
 
 
@@ -142,6 +147,6 @@ if __name__ == '__main__':
         },
     ]
 
-    scores = get_score(ingredients)
+    scores = get_indicators(ingredients)
 
     print(f"co2 value: {scores['co2-eq-in-g']}g CO₂equivalent")
