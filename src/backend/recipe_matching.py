@@ -137,10 +137,9 @@ def find_matching_recipe(textinput, lang=None):
 
     # recipe search
 
-    params = {"q": urllib.parse.quote(textinput), "size":100}
-    headers = {'Content-Type': 'application/json'}
-    req = requests.get(BASE_URL + f"hack/recipe/recipes_{lang}/_search",
-                        params=params, auth=AUTH, headers=headers)
+    data = {"query": {"match": {"title":{"query":textinput}}}}
+    req = requests.post(f"{BASE_URL}hack/recipe/recipes_{lang}/_search",
+                        json=data, auth=AUTH, headers={'Content-Type': 'application/json'})
 
     assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
 
