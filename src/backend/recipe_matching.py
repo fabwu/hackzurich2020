@@ -40,27 +40,20 @@ def find_matching_recipe(textinput, lang=None):
         textinput = gs.translate(textinput, 'de', 'en')
         lang = "de"
 
-
-
     # recipe search
 
-
-    # '''POST "hack/recipe/recipes_de/_search"  \
-    #        -H "Content-Type: application/json"  \
-    #        -d '{"query": {"match": {"title":{"query":"Spanferkel"}}}}'
-    # '''
-    #
-    # json_query = '{"query": {"match": {"title":{"query":"'+urllib.parse.quote(textinput)+'"}}}}' #
-    # headers = {'Content-Type': 'application/json'}
-    # req = requests.post(BASE_URL + f"hack/recipe/recipes_{lang}/_search", data=json_query, auth=AUTH, headers=headers)
-    # assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
-
-
-    params = {"q": urllib.parse.quote(textinput)}
+    params = {"q": urllib.parse.quote(textinput), "size":100}
     headers = {'Content-Type': 'application/json'}
+    req = requests.get(BASE_URL + f"hack/recipe/recipes_{lang}/_search",
+                       params=params, auth=AUTH, headers=headers)
 
-    req = requests.get(BASE_URL + f"hack/recipe/recipes_{lang}/_search", params=params, auth=AUTH, headers=headers)
     assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
+
+    # all returned recipe names - it only returns 10
+    names = [h['_source']['title'] for h in req.json()['hits']['hits'] ]
+
+    # This one is Spaghetti Carbonara (in testing):
+    carbonara = req.json()['hits']['hits'][42]
 
 
 def testme():
