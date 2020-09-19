@@ -2,7 +2,6 @@
 
 from Levenshtein import distance as levenshtein_distance, editops as levenshtein_editops
 import random
-import re
 
 def find_best_match(search_str, options):
     '''

@@ -1,6 +1,5 @@
-import requests, json
+import requests
 from requests.auth import HTTPBasicAuth
-import urllib.parse
 import re
 
 BASE_URL = "https://hackzurich-api.migros.ch/"
