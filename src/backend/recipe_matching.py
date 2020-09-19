@@ -2,8 +2,10 @@
 import requests, json
 from requests.auth import HTTPBasicAuth
 import urllib.parse
-import nltk
-from nltk.tokenize import word_tokenize
+import re
+# import nltk
+# from nltk.tokenize import word_tokenize
+# import spacy
 
 
 BASE_URL = "https://hackzurich-api.migros.ch/"
@@ -16,9 +18,15 @@ ALL_UNITS = [
     'g',
     'Bund',
     'dl',
+    'l',
     # Todo
 ]
 KNOWN_UNITS = ["g", "l", "dl", "kg"]
+
+def word_tokenize(text):
+    parsed = re.split(" |-", text )
+    parsed = [re.sub('[\W_]+', '', w) for w in parsed]
+    return parsed
 
 def migusto_to_eaternity_unit(unit_name, amount, ingredient_id=None):
     ''''''
@@ -26,8 +34,11 @@ def migusto_to_eaternity_unit(unit_name, amount, ingredient_id=None):
         if ingredient_id is not None:
             # Todo: Can use the ingredients API and find out the type? -> lower weight for spices
             raise NotImplementedError
-        unit_name = "gram"
-        amount = 250
+        if amount > 0:
+            unit_name = None # unit is _not_ required, according to the docs
+        else:
+            unit_name = "gram"
+            amount = 250
     else:
         if unit_name in ["g", "l"]:
             unit_name = "gram" if unit_name == "g" else "liter"
@@ -42,12 +53,31 @@ def migusto_to_eaternity_unit(unit_name, amount, ingredient_id=None):
     return unit_name, amount
 
 
+LANGUAGE_MAP = {'en': 'english', 'fr': 'french', 'it': 'italian', 'de': 'german'}
 
-def find_matching_recipe(textinput, lang=None):
+def simplify_ingredient_name(ingredient_description, lang):
+    import spacy
+    assert lang is not None
+    ingred_words = word_tokenize(ingredient_description, language=LANGUAGE_MAP[lang])
+
+    nlp = spacy.load(lang)
+    doc = nlp(ingredient_description)
+    sub_toks = [tok for tok in doc if (tok.dep_ == "ROOT")]
+
+    import nltk
+    tags = nltk.pos_tag(ingred_words)
+    # We keep all kinds of words, and foreign words
+    ingred_words = [ingred for i, ingred in enumerate(ingred_words) if (tags[i][1].startswith('NN') or tags[i][1] =='FW')]
+    print("breakp")
+
+
+
+def find_matching_recipe(textinputs, lang=None):
     '''
-    :param textinput: a string. if lang=None, detect if english, else assume german.
+    :param textinputs: a list of strings. if lang=None, detect if english, else assume german.
                     To specify language: english: lang="en", french: lang="fr", german: lang="de",italian: "it".
-    :return: A dictionary representing the best matching recipe, with ingredients for one portion, ie one person:
+    :return: A list of dictionaries. Each dict represents the best matching recipe for one search input,
+            it has information about ingredients for one portion, ie one person:
         {
          "title": ...,
          "nutrients": [dict of nutrients for one portion],
@@ -63,8 +93,10 @@ def find_matching_recipe(textinput, lang=None):
          Plus a success boolean, true if a recipe was found
 
     '''
-
-    # #TODO return such a dict
+    if isinstance(textinputs, str):
+        print("ERROR: Please input a list of strings, not a single string.")
+        return [], 400
+    # #Returns such a dict
     # return [
     #     {
     #         "name": "Chilli",
@@ -80,80 +112,99 @@ def find_matching_recipe(textinput, lang=None):
     #     },
     # ]
 
-    textinput_words = [w for w in word_tokenize(textinput) if len(w) > 1]
 
-    if len(textinput_words) == 0:
-        raise ValueError("please input words with more than one letter") ## return error code instead?
+    # detect whether language is English, then we'll need to translate
 
-    # detect if language is English
     if lang is None:
+
+        raise NotImplementedError("Please specify a language. NLTK is required for detecting English input.")
+
+        textinput_words_all = [w for w in word_tokenize(" ".join(textinputs)) if len(w) > 1]
+
         english_vocab = set(w.lower() for w in nltk.corpus.words.words())
-        text_vocab = set(w.lower() for w in textinput_words if w.lower().isalpha())
+        text_vocab = set(w.lower() for w in textinput_words_all if w.lower().isalpha())
         unusual = text_vocab.difference(english_vocab)
-        if len(unusual) < 0.5 * len(textinput_words): # if more than half the words are in english
+
+        if len(unusual) < 0.5 * len(textinput_words_all):  # if more than half the words are in english
             lang = "en"
         else:
             lang = "de"
 
-    if lang == "en":
-        # translate
-        import goslate
-        gs = goslate.Goslate()
-        textinput_en = textinput
-        textinput = gs.translate(textinput, 'de', 'en')
-        lang = "de"
+    results = []
 
-    # recipe search
+    for textinput in textinputs:
 
-    params = {"q": urllib.parse.quote(textinput), "size":100}
-    headers = {'Content-Type': 'application/json'}
-    req = requests.get(BASE_URL + f"hack/recipe/recipes_{lang}/_search",
-                       params=params, auth=AUTH, headers=headers)
+        textinput_words = [w for w in word_tokenize(textinput) if len(w) > 1]
 
-    assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
+        if len(textinput_words) == 0:
+            raise ValueError("please input at least one word with more than one letter. Input was: "+str(textinput)) ## return error code instead?
 
-    recipes = req.json()['hits']['hits']
-    if len(recipes) == 0:
-        return {}, False
-    # ... Todo
+        if lang == "en":
+            # translate
+            import goslate
+            gs = goslate.Goslate()
+            textinput_en = textinput
+            textinput = gs.translate(textinput, 'de', 'en')
+            lang = "de"
 
-    # all returned recipe names - it only returns 10
-    names = [h['_source']['title'] for h in recipes ]
+        # recipe search
 
-    # This one is Spaghetti Carbonara (in testing):
-    carbonara = recipes[42]
+        params = {"q": urllib.parse.quote(textinput), "size":100}
+        headers = {'Content-Type': 'application/json'}
+        req = requests.get(BASE_URL + f"hack/recipe/recipes_{lang}/_search",
+                           params=params, auth=AUTH, headers=headers)
 
-    # ... Todo
-    best_match = recipes[0]["_source"] # preliminary
+        assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
 
-    # Get ingredients with quantities
-    num_portions =  best_match["sizes"][0]["quantity"]
-    ingredients_dicts = best_match["sizes"][0]["ingredient_blocks"]
-    assert len(ingredients_dicts) == 1, "Rewrite to handle all blocks of ingredients"
-    ingredients_dicts = ingredients_dicts[0]["ingredients"]
+        recipes = req.json()['hits']['hits']
+        if len(recipes) == 0:
+            return [], 404
+        # # ... Todo
+        #
+        # # all returned recipe names - it only returns 10
+        # names = [h['_source']['title'] for h in recipes ]
+        #
+        # # ... Todo
 
-    ingredients = []
-    for ing in ingredients_dicts:
-        ingred =  { #'id': ing['id'],
-             'name': ing['text'],
-             'lang': lang
-        }
-        ingred['unit'], ingred['amount'] = migusto_to_eaternity_unit(
-                ing['amount']['unit'] ,
-                ing['amount']['quantity'] / num_portions
-              )
-        ingredients.append(ingred)
+        best_match = recipes[0]["_source"] # preliminary
 
-    result_dict = {"title": best_match["title"],
-                   "nutrients": best_match["nutrients"],
-                   "ingredients": ingredients
-                   }
-    return result_dict, True
+        # Get ingredients with quantities
+        num_portions =  best_match["sizes"][0]["quantity"]
+        ingredients_dicts = best_match["sizes"][0]["ingredient_blocks"]
+        assert len(ingredients_dicts) == 1, "Rewrite to handle all blocks of ingredients"
+        ingredients_dicts = ingredients_dicts[0]["ingredients"]
+
+        ingredients = []
+        for ing in ingredients_dicts:
+            # name = simplify_ingredient_name(ing['text'], lang=lang)
+            name = ing['text']
+            if len(name.split(" ")) > 1:
+                # skip ingredients with more than one word to minimize things eaternity does not recognize
+                continue
+            ingred =  { #'id': ing['id'],
+                 'name': name,
+                 'lang': lang
+            }
+            unit, amount = migusto_to_eaternity_unit(
+                    ing['amount']['unit'] ,
+                    ing['amount']['quantity'] / num_portions
+            )
+            ingred['amount'] = amount
+            # Unit is not required, according to the docs
+            if unit is not None:
+                ingred['unit'] = unit
+
+        result_dict = {"title": best_match["title"],
+                       "nutrients": best_match["nutrients"],
+                       "ingredients": ingredients
+                       }
+        results.append(result_dict)
+    return results, 200
 
 
 def testme():
-    textinput = "Spaghetti Carbonara"
-    find_matching_recipe(textinput, lang="de")
+    textinputs = ["Carbonara Spaghetti", "A worse. Apple-Cake#"]
+    find_matching_recipe(textinputs, lang="de")
 
 if __name__ == '__main__':
     testme()
