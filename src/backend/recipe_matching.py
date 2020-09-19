@@ -137,7 +137,13 @@ def find_matching_recipe(textinput, lang=None):
 
     # recipe search
 
-    data = {"query": {"match": {"title":{"query":textinput}}}}
+    data  = {
+        "query": {
+            "simple_query_string": {
+                "query": textinput,
+            }
+        }
+    }
     req = requests.post(f"{BASE_URL}hack/recipe/recipes_{lang}/_search",
                         json=data, auth=AUTH, headers={'Content-Type': 'application/json'})
 
