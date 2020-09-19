@@ -2,7 +2,7 @@ import requests
 import time
 import os
 
-from text_matching import find_best_match
+# from text_matching import find_best_match
 
 from requests.auth import HTTPBasicAuth
 
@@ -104,8 +104,8 @@ def get_indicators(ingredients):
 
     for idx, ing in enumerate(ingredients):
         if ing['name'] not in product_whitelist_de:
-            #match, close_enough = find_best_match(ing['name'], product_whitelist_de)
-            #print(f"Skipping {ing['name']}")
+            # match, close_enough = find_best_match(ing['name'], product_whitelist_de)
+            # print(f"Skipping {ing['name']}")
             continue
 
         req_ingredient = {
@@ -181,6 +181,18 @@ if __name__ == '__main__':
         },
         {
             "name": "Ei",
+            "lang": "de",
+            "amount": 200,
+            "unit": "gram"
+        },
+        {
+            "name": "Toastbrot",
+            "lang": "de",
+            "amount": 200,
+            "unit": "gram"
+        },
+        {
+            "name": "Lattich",
             "lang": "de",
             "amount": 200,
             "unit": "gram"
