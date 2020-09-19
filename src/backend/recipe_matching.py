@@ -16,7 +16,21 @@ def find_matching_recipe(textinput, lang=None):
     '''
     :param textinput: a string. if lang=None, detect if english, else assume german.
                     To specify language: english: lang="en", french: lang="fr", german: lang="de",italian: "it".
-    :return: tbd, probably a dict or a json representing a single recipe that matches best
+    :return: A dictionary representing the best matching recipe:
+        {
+         "title": ...,
+         "portions": 1, [always],
+         "nutrients": [dict of nutrients for one portion],
+         "ingredients": {
+            'id': migusto-id,
+            'name': string with name, possibly more specifiers (eg. "in oil"),
+            'unit': eg. "g" for gram
+             # ** Note: unit can be an empty string. This probably always means "piece" or unspecified (eg for salt)
+            'quantity': ing['amount']['quantity'] / num_portions,
+             # ** Note: quantity can be 0 (e.g for "salt" where it's not specified)
+           }
+         }
+
     '''
 
     textinput_words = [w for w in word_tokenize(textinput) if len(w) > 1]
@@ -49,11 +63,40 @@ def find_matching_recipe(textinput, lang=None):
 
     assert req.status_code == 200, f"Error: {req.status_code}, {req.content}"
 
+    recipes = req.json()['hits']['hits']
+    # ... Todo
+
     # all returned recipe names - it only returns 10
-    names = [h['_source']['title'] for h in req.json()['hits']['hits'] ]
+    names = [h['_source']['title'] for h in recipes ]
 
     # This one is Spaghetti Carbonara (in testing):
-    carbonara = req.json()['hits']['hits'][42]
+    carbonara = recipes[42]
+
+    # ... Todo
+    best_match = recipes[0]["_source"] # preliminary
+
+    # Get ingredients with quantities
+    num_portions =  best_match["sizes"][0]["quantity"]
+    ingredients_dicts = best_match["sizes"][0]["ingredient_blocks"]
+    assert len(ingredients_dicts) == 1, "Rewrite to handle all blocks of ingredients"
+    ingredients_dicts = ingredients_dicts[0]["ingredients"]
+
+    ingredients = []
+    for ing in ingredients_dicts:
+        ingredients.append(
+            {'id': ing['id'],
+             'name': ing['text'],
+             'unit': ing['amount']['unit'],  # Note: unit can be an empty string, probably always means "piece" or unspecified (eg salt)
+             'quantity': ing['amount']['quantity'] / num_portions,  # Note: quantity can be 0 (e.g for "salt" where it's not specified)
+             }
+        )
+
+    result_dict = {"title": best_match["title"],
+                   "portions": 1,
+                   "nutrients": best_match["nutrients"],
+                   "ingredients": ingredients
+                   }
+    return result_dict
 
 
 def testme():
