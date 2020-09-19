@@ -166,31 +166,32 @@ def find_matching_recipe(textinput, lang=None):
 
     # Get ingredients with quantities
     num_portions =  best_match["sizes"][0]["quantity"]
-    ingredients_dicts = best_match["sizes"][0]["ingredient_blocks"]
-    assert len(ingredients_dicts) == 1, "Rewrite to handle all blocks of ingredients"
-    ingredients_dicts = ingredients_dicts[0]["ingredients"]
+    ingredients_dict_blocks = best_match["sizes"][0]["ingredient_blocks"]
+    for ingredients_dicts in ingredients_dict_blocks:
+        # assert len(ingredients_dicts) == 1, "Rewrite to handle all blocks of ingredients"
+        ingredients_dicts = ingredients_dicts["ingredients"]
 
-    ingredients = []
-    for ing in ingredients_dicts:
-        # name = simplify_ingredient_name(ing['text'], lang=lang)
-        name = ing['text']
-        if len(name.split(" ")) > 1:
-            # skip ingredients with more than one word to minimize things eaternity does not recognize
-            continue
-        ingred =  { #'id': ing['id'],
-                'name': name,
-                'lang': lang
-        }
-        unit, amount = migusto_to_eaternity_unit(
-                ing['amount']['unit'] ,
-                ing['amount']['quantity'] / num_portions
-        )
-        ingred['amount'] = amount
-        # Unit is not required, according to the docs
-        if unit is not None:
-            ingred['unit'] = unit
+        ingredients = []
+        for ing in ingredients_dicts:
+            # name = simplify_ingredient_name(ing['text'], lang=lang)
+            name = ing['text']
+            if len(name.split(" ")) > 1:
+                # skip ingredients with more than one word to minimize things eaternity does not recognize
+                continue
+            ingred =  { #'id': ing['id'],
+                    'name': name,
+                    'lang': lang
+            }
+            unit, amount = migusto_to_eaternity_unit(
+                    ing['amount']['unit'] ,
+                    ing['amount']['quantity'] / num_portions
+            )
+            ingred['amount'] = amount
+            # Unit is not required, according to the docs
+            if unit is not None:
+                ingred['unit'] = unit
 
-        ingredients.append(ingred)
+            ingredients.append(ingred)
 
     result_dict = { "title": best_match["title"],
                     "nutrients": best_match["nutrients"],
@@ -201,7 +202,12 @@ def find_matching_recipe(textinput, lang=None):
 
 
 def testme():
-    textinputs = ["Carbonara Spaghetti", "A worse. Apple-Cake#", "Red Thai Curry"]
+    textinputs = [
+"Red-Thai-Curry",
+"Spaghetti-carbonara",
+"Caesar-Salad",
+"Wiener-Schnitzel"
+]
     textinput = textinputs[2]
     find_matching_recipe(textinput, lang="de") # "en")
 
