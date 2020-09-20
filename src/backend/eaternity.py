@@ -1,6 +1,8 @@
 import requests
 import time
 import os
+import string 
+import random
 
 from text_matching import find_best_match
 
@@ -16,6 +18,9 @@ if YOUR_KEY == "CHANGEME":
 
 PRODUCT_WHITELIST_FILE = 'eaternity_product_list_de.txt'
 product_whitelist_de = []
+
+def get_random_id():
+    return ''.join(random.choices(string.ascii_uppercase +string.digits, k = 10)) 
 
 def get_kitchens():
     url = f"{BASE_URL}/api/kitchens/"
@@ -114,7 +119,7 @@ def get_indicators(ingredients):
 
         req_ingredient = {
             # Use new id for each request!!!
-            "id": int(time.time()) + idx,
+            "id": get_random_id(),
             "type": "conceptual-ingredients",
             "names": [
                 {
