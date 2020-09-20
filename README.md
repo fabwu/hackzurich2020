@@ -2,6 +2,7 @@
 
 Foodprint is an app that helps you assess the environmental footprint of different meal options when scanning a menu in a restaurant.
 
+This is our submission to HackZurich 2020.
 
 ## Links
 
