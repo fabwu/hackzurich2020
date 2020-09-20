@@ -149,10 +149,13 @@ def get_indicators(ingredients):
         recipe = response.json()
         # delete recipe as we don't use it
         delete_recipe(recipe['recipe-id'])
+        # print(recipe['recipe'])
 
         return {
             'co2-eq-in-g': recipe['recipe']['co2-value'],
-            'rating': recipe['recipe']['rating']
+            'rating': recipe['recipe']['rating'],
+            'vita-score': recipe['recipe']['indicators']['vita-score'],
+            'environment': recipe['recipe']['indicators']['environment']
         }
 
 
